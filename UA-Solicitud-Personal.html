@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <title>Solicitud de Personal</title>
+        <link rel="Stylesheet" href="Estilos/Estilo.css">
+        <link rel="stylesheet" href="Estilos/Estilo-Menu.css">
+        <script src="Scripts/Scripts.js"></script>
+    </head>
+
+    <body onload="fechaHoraIngreso(), generarNumeroSolicitud()">
+
+        <!-- Encabezado, incluye Logotipo y etiquetas de identificación de perfil, fecha y hora. -->
+        <img src="Imagenes/IBERO-LOGO-CDMX.png" alt="Universidad Iberoamericana" id="logotipoUniversidad" class="alinearLogo"> <!--  onclick="limpiarParametros()" -->
+        <span class="alinearInfoIngreso"><b>Perfil:</b>Unidad Acad&eacute;mica</span><br>
+        <span class="alinearInfoIngreso"><b>Usuario:</b>Nombre de Usuario</span><br>
+        <span class="alinearInfoIngreso"><b>Fecha:</b><a id="horaFecha"></a></span>
+
+        <!-- Menu de navegación de la aplicación -->
+        <ul>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Solicitud de Personal</a>
+                <div class="dropdown-content">
+                    <a>&#128607; T&eacute;cnico Acad&eacute;mico</a>
+                    <a onclick="contenidoOpcionMenu('SolicitudAcademicoTiempo')">&#128607; Acad&eacute;mico de Tiempo</a>
+                    <a>&#128607; Tiempo y Obra</a>
+                    <a>&#128607; Administrativo</a>
+                </div>
+            </li>
+            <li style="float:right"><a class="active"><strong>Solicitud</strong></a></li>
+        </ul>
+
+        <!-- Cuerpo de la solicitud -->        
+        <section id="datosSolicitud" class="solicitudEstilo" ><!-- hidden -->
+
+            <h1>Acad&eacute;mico de Tiempo</h1>
+            <h2>N&uacute;mero de Solicitud <span class="numeroSolicitud" id="numeroSolicitud"></span></h2>
+            <h3>Informaci&oacute;n del Puesto</h3>
+    
+            <table class="alinearTabla" border="1">
+                <tr>
+                    <td id="etiqTipoPlaza" class="alinearTD">Tipo de Plaza:</td>
+                    <td colspan="2">
+                        <select id="tipoPlazaSolicitada" onblur="validarCamposRequeridos()">
+                            <option>Sustituci&oacute;n</option>
+                            <option>Suplencia</option>
+                            <option>Nueva Creaci&oacute;n</option>
+                            <option>Temporal</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="etiqNumCredencial" class="alinearTD" ><!-- hidden -->N&uacute;mero de Credencial: </td>
+                    <td id="txtNumCredencial" ><!-- hidden --><input type="text" id="numeroEmpleado"></td>
+                    <td id="tdIconBusqueda" rowspan="2" ><!-- hidden --><img src="Imagenes/Buscar.jpg" id="icoBusqueda" title="Buscar" onclick="buscarEmpleado()"></td>
+                </tr>
+                <tr>
+                    <td id="etiqNombreBusqueda" class="alinearTD" ><!-- hidden -->Nombre: </td>
+                    <td id="txtNombreBusqueda" ><!-- hidden --><input type="text" id="nombreBuscado"><!--txtNombreEmpleado ><!-- hidden -- --></td>
+                </tr>
+                <tr>
+                    <td id="etiqSustituye" class="alinearTD"  ><!-- hidden -->Sustitye a: <strong style="color: red">*</strong></td>
+                    <td id="txtSustituye" ><!-- hidden --><input type="text" name="txtSustituye" id="numeroNominaEncontrado"></td> <!-- numeroNomina | onblur="simulacionInformacion(this.value)" -->
+                </tr>
+                <tr>
+                    <td id="etiqNombreEmpleado" class="alinearTD" ><!-- hidden -->Nombre Empleado: <strong style="color: red">*</strong></td>
+                    <td id="txtNombreEmpleado" ><!-- hidden --><input type="text" id="nombreEmpleadoEncontrado" name="txtNombre"></td> <!--NomEmp | <label id="nombreEmpleadoENCONTRADO" ><!-- hidden --></label> -->
+                </tr>
+                <tr>
+                    <td id="lblMotivo" class="alinearTD"><!-- hidden -->Motivo de Sustituci&oacute;n o Suplencia: <strong style="color: red">*</strong></td>
+                    <td colspan="2">
+                        <select id="motivoSustitucion" onblur="especificarMotivo()" ><!-- hidden -->
+                            <option>Despido</option>
+                            <option>Fallecimiento</option>
+                            <option>Jubilaci&oacute;n</option>
+                            <option>Incapacidad</option>
+                            <option>Renuncia Voluntaria</option>
+                            <option>Otro</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lblMotivoEspecificado" class="alinearTD"><!-- hidden -->Especifique: </td>
+                    <td id="motivoEspecificado" colspan="2" ><!-- hidden --><input type="text" id="otroMotivoSustitucion"></td>
+                </tr>
+                <tr>
+                    <td class="alinearTD">Convocatoria: <strong style="color: red">*</strong></td>
+                    <td colspan="2"><input type="file" ></td> <!-- class="separacionControles" -->
+                </tr>
+                <tr>
+                    <td class="alinearTD">Acta de Consejo Acad&eacute;mico: <strong style="color: red">*</strong></td>
+                    <td colspan="2"><input type="file" ></td> <!-- class="separacionControles" -->
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p id="msjSolicitudEnviada" style="color: red; text-align: center;" ><!-- hidden --><strong>Su solicitud fue enviada con &eacute;xito</strong></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="button" id="enviarSolicitud" value="Enviar" style="margin-left: 430px" onclick="pausarEnvioForma()"> 
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+    </body>
+
+</html>
