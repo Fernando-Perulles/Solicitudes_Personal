@@ -70,8 +70,9 @@ li a:hover, .dropdown:hover .dropbtn {
 
 }
 
-.active {
+.active, .collapsible:hover {
 
-    background-color: red; /* rgb(76, 130, 175) */
-
-}
+    background-color: red;
+    color: rgb(252, 249, 246);
+    
+  }
